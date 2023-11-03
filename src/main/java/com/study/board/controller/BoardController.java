@@ -30,9 +30,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception{
+    public String boardWritePro(Board board, Model model) {
 
-        boardService.write(board, file);
+        boardService.write(board);
 
         model.addAttribute("message", "게시글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
@@ -92,15 +92,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board, Model model, MultipartFile file) throws Exception {
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, Model model) throws IOException {
 
         Board boardTemp = boardService.boardView(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
-        boardTemp.setFilename(board.getFilename());
-        boardTemp.setFilepath(board.getFilepath());
 
-        boardService.write(boardTemp, file);
+        boardService.write(boardTemp);
 
         model.addAttribute("message", "게시글 수정이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
