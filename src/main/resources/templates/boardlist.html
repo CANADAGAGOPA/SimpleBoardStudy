@@ -6,19 +6,86 @@
 </head>
 
 <style>
-  .layout {
-    width: 500px;
-    margin: 0 auto;
-    margin-top: 40px;
+  *{
+    margin: 0;
+    padding: 0;
   }
 
+  body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .layout {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  h1{
+    margin-bottom: 3vh;
+  }
   table {
+    width: 60%;
+    height: auto;
+    min-height: 11%;
     margin-bottom: 10px;
   }
+  tr td:first-child{
+    width: 15%;
+    height: 15%;
+    text-align: center;
+    position: relative;
+  }
 
+  tr td:first-child:after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3vh;
+    border-right: 1px solid black;
+    position: absolute;
+    top: 0;
+  }
+  tr td:last-child{
+    transition: 0.2s;
+  }
+  tr td:last-child:hover{
+    background-color: darkgray;
+  }
+    a{
+      margin-left: 1vw;
+      text-decoration: none;
+      color: black;
+    }
   form {
+    width: 40%;
+    height: 10%;
     margin-bottom: 10px;
     margin-top: 10px;
+  }
+  input{
+    width: 70%;
+    height: 40%;
+    outline: none;
+    font-size: 17px;
+  }
+  button{
+    width: 5vw;
+    height: 4vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+  }
+  .btn2{
+    margin-top: 1vh;
+    width: 9vw;
   }
 </style>
 
@@ -42,16 +109,20 @@
       </tbody>
     </table>
 
-    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-      <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1},
+    <section>
+      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1},
       searchKeyword = ${param.searchkeyword})}" th:text="${page}"></a>
-      <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>
-    </th:block>
+        <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>
+      </th:block>
+    </section>
+
+
     <form th:action="@{/board/list}" method="get">
       <input type="text" name="searchKeyword">
       <button type="submit">검색</button>
     </form>
-    <button type="submit" onclick="location.href='/board/write'">새 게시물 작성하기</button>
+    <button type="submit" onclick="location.href='/board/write'" class="btn2">새 게시물 작성하기</button>
   </div>
 
 </body>
