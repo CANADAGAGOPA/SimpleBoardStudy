@@ -91,7 +91,7 @@
 
 <body>
   <div class="layout">
-    <h1>20181770 김선욱 - 게시판</h1>
+    <h1>영단어</h1>
     <table>
       <thead>
         <tr>
@@ -101,7 +101,7 @@
       </thead>
       <tbody>
         <tr th:each="board : ${list}">
-          <td th:text="${board.id}">1</td>
+          <td th:text="${board.id}" >1</td>
           <td>
             <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
           </td>

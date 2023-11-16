@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@Service //
 public class BoardService {
 
     @Autowired
@@ -26,7 +26,7 @@ public class BoardService {
     }
 
     // 게시글 작성 리스트
-    public Page<Board> boardList(Pageable pageable) {
+    public Page<Board> boardList(Pageable pageable) { //
 
         return boardRepository.findAll(pageable);
     }

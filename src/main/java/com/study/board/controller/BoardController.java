@@ -17,22 +17,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Controller
+@Controller //  Controller는 화면(View)과 비즈니스 로직(Model)를 연결시키는 다리 역할
 public class BoardController {
 
-    @Autowired
+    @Autowired // BoardRepository와 연결
     private BoardService boardService;
 
-    @GetMapping("/board/write") // local:8090/board/write
+    @GetMapping("/board/write") // local:8090/board/write 요청이 들어오면 아래의 함수를 실행
     public String boardWriteForm() {
 
-        return "boardwrite";
+        return "boardwrite"; // templates 에서 "boardwrite"라는 이름의 View 를 찾아서 반환
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model) {
+    public String boardWritePro(Board board, Model model) { //
 
-        boardService.write(board);
+        boardService.write(board); // BoardService 와 연결되어 있다.
 
         model.addAttribute("message", "게시글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
@@ -40,12 +40,13 @@ public class BoardController {
         return "message";
     }
 
-    @GetMapping("/board/list")
+    @GetMapping("/board/list") // local:8090/board/list 요청이 들어오면 아래의 함수를 실행
     public String boardList(Model model,
                             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                             String searchKeyword) {
 
         Page<Board> list = null;
+        // 객체는 페이징된 데이터를 나타내며, 여기에서는 게시판(Board) 엔터티에 대한 페이지를 나타내기 위한 변수를 초기화
 
         if(searchKeyword == null) {
             list = boardService.boardList(pageable);
@@ -57,10 +58,13 @@ public class BoardController {
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
-        model.addAttribute("list", list);
+     // model.addAttribute("list", boardService.boardList());
+        model.addAttribute("list", list); // 뷰로 전달할 데이터를 "list"란 이름으로 모델에 추가
+        // 스프링 MVC에서 뷰에 데이터를 전달하기 위한 코드
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        // 뷰에게 보여줄 정보들을 model.addAttribute 메서드를 통해 모델에 추가
 
         return "boardlist";
     }
