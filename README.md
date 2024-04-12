@@ -9,3 +9,4 @@
 - 게시물 삭제 및 수정
 - 게시물 키워드로 찾기
  <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+ <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white">
